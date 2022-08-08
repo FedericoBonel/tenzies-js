@@ -3,12 +3,11 @@ import Die from "./components/Die/Die";
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
-import victory from "./sounds/victory.mp3"
+import victory from "./sounds/victory.mp3";
 
 const App = () => {
-    const [max, min] = [7, 1];
-
     const generateRandomValue = () => {
+        const [max, min] = [7, 1];
         return Math.floor(Math.random() * (max - min) + min);
     };
 
@@ -26,6 +25,7 @@ const App = () => {
 
     const [dies, setDies] = useState(generateRandomDies());
     const [won, setWon] = useState(false);
+    const [numberRolls, setNumberRolls] = useState(0);
 
     useEffect(() => {
         const checkWonGame = () => {
@@ -46,6 +46,7 @@ const App = () => {
         if (won) {
             setWon(false);
             setDies(generateRandomDies());
+            setNumberRolls(0);
         } else {
             setDies((oldDies) =>
                 oldDies.map((die) =>
@@ -57,6 +58,7 @@ const App = () => {
                           }
                 )
             );
+            setNumberRolls((oldNumber) => oldNumber + 1);
         }
     };
 
@@ -81,6 +83,7 @@ const App = () => {
                     Roll until all dice are the same. Click each die to freeze
                     it at its current value between rolls.
                 </p>
+                <p className="tenzies-rolls">{`Number of rolls: ${numberRolls}`}</p>
                 <section className="dies-container">{renderedDies}</section>
                 <button className="roll-btn" onClick={rollNewDies}>
                     {won ? "New Game" : "Roll"}
