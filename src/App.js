@@ -3,6 +3,7 @@ import Die from "./components/Die/Die";
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
+import victory from "./sounds/victory.mp3"
 
 const App = () => {
     const [max, min] = [7, 1];
@@ -34,7 +35,11 @@ const App = () => {
             );
         };
 
-        setWon(checkWonGame());
+        if (checkWonGame()) {
+            const audio = new Audio(victory);
+            audio.play();
+            setWon(true);
+        }
     }, [dies]);
 
     const rollNewDies = () => {
