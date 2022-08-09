@@ -11,7 +11,7 @@ const App = () => {
         return Math.floor(Math.random() * (max - min) + min);
     };
 
-    const generateRandomDies = (numberOfValues = 10) => {
+    const generateRandomDice = (numberOfValues = 10) => {
         let numbers = [];
         for (let i = 0; i < numberOfValues; i++) {
             numbers.push({
@@ -23,14 +23,14 @@ const App = () => {
         return numbers;
     };
 
-    const [dies, setDies] = useState(generateRandomDies());
+    const [dice, setDice] = useState(generateRandomDice());
     const [won, setWon] = useState(false);
     const [numberRolls, setNumberRolls] = useState(0);
 
     useEffect(() => {
         const checkWonGame = () => {
-            const valueToCheck = dies[0].value;
-            return dies.every(
+            const valueToCheck = dice[0].value;
+            return dice.every(
                 (die) => die.isHeld && die.value === valueToCheck
             );
         };
@@ -40,16 +40,16 @@ const App = () => {
             audio.play();
             setWon(true);
         }
-    }, [dies]);
+    }, [dice]);
 
-    const rollNewDies = () => {
+    const rollNewDice = () => {
         if (won) {
             setWon(false);
-            setDies(generateRandomDies());
+            setDice(generateRandomDice());
             setNumberRolls(0);
         } else {
-            setDies((oldDies) =>
-                oldDies.map((die) =>
+            setDice((oldDice) =>
+                oldDice.map((die) =>
                     die.isHeld
                         ? die
                         : {
@@ -62,15 +62,15 @@ const App = () => {
         }
     };
 
-    const holdDice = (diceId) => {
-        setDies((oldDies) =>
-            oldDies.map((die) =>
-                die.id === diceId ? { ...die, isHeld: !die.isHeld } : die
+    const holdDice = (dieId) => {
+        setDice((oldDice) =>
+            oldDice.map((die) =>
+                die.id === dieId ? { ...die, isHeld: !die.isHeld } : die
             )
         );
     };
 
-    const renderedDies = dies.map((die) => (
+    const renderedDice = dice.map((die) => (
         <Die key={die.id} die={die} onChoose={holdDice} />
     ));
 
@@ -84,8 +84,8 @@ const App = () => {
                     it at its current value between rolls.
                 </p>
                 <p className="tenzies-rolls">{`Number of rolls: ${numberRolls}`}</p>
-                <section className="dies-container">{renderedDies}</section>
-                <button className="roll-btn" onClick={rollNewDies}>
+                <section className="dice-container">{renderedDice}</section>
+                <button className="roll-btn" onClick={rollNewDice}>
                     {won ? "New Game" : "Roll"}
                 </button>
             </main>

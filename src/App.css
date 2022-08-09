@@ -15,7 +15,7 @@ main {
     border-radius: 10px;
 }
 
-.dies-container {
+.dice-container {
     margin: 23px 35px;
     display: grid;
     grid-template: auto auto / repeat(5, 1fr);
