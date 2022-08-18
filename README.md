@@ -3,4 +3,4 @@
 
 The classic tenzies game but in your browser! 
 
-[Click here to play it!](https://cosmic-mooncake-a8f95c.netlify.app)
+[Click here to play it!](https://tenzzies.netlify.app/)
